@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+require "test_helper"
+require "stringio"
+require "tmpdir"
+require "anvil/cli"
+
+module Anvil
+  class TestCLI < Minitest::Test
+    def test_audits_the_directory_and_writes_a_report_to_io
+      Dir.mktmpdir do |dir|
+        File.write("#{dir}/sample.gemspec", <<~RUBY)
+          Gem::Specification.new do |spec|
+            spec.name = "sample"
+            spec.version = "0.0.1"
+            spec.summary = "x"
+            spec.authors = ["x"]
+            spec.required_ruby_version = ">= 3.2.0"
+          end
+        RUBY
+        io = StringIO.new
+
+        Anvil::CLI.run(dir, io)
+
+        assert_equal "✓\n", io.string
+      end
+    end
+  end
+end
