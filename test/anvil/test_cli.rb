@@ -19,6 +19,7 @@ module Anvil
           end
         RUBY
         File.write("#{dir}/LICENSE", "MIT")
+        File.write("#{dir}/CHANGELOG.md", "# Changelog")
         io = StringIO.new
 
         Anvil::CLI.run(dir, io)
@@ -39,6 +40,7 @@ module Anvil
           end
         RUBY
         File.write("#{dir}/LICENSE", "MIT")
+        File.write("#{dir}/CHANGELOG.md", "# Changelog")
 
         assert_equal true, Anvil::CLI.run(dir, StringIO.new)
       end
