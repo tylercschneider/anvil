@@ -17,11 +17,12 @@ module Anvil
             spec.required_ruby_version = ">= 3.2.0"
           end
         RUBY
+        File.write("#{dir}/LICENSE", "MIT")
 
         results = Audit::Runner.run(dir)
 
-        assert_equal 1, results.length
-        assert_predicate results.first, :pass?
+        assert_equal [:ruby_min_version, :license], results.map(&:name)
+        assert results.all?(&:pass?)
       end
     end
   end
