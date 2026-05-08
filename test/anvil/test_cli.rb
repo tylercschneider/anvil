@@ -25,5 +25,21 @@ module Anvil
         assert_equal "✓ ruby_min_version\n", io.string
       end
     end
+
+    def test_returns_true_when_all_checks_pass
+      Dir.mktmpdir do |dir|
+        File.write("#{dir}/sample.gemspec", <<~RUBY)
+          Gem::Specification.new do |spec|
+            spec.name = "sample"
+            spec.version = "0.0.1"
+            spec.summary = "x"
+            spec.authors = ["x"]
+            spec.required_ruby_version = ">= 3.2.0"
+          end
+        RUBY
+
+        assert_equal true, Anvil::CLI.run(dir, StringIO.new)
+      end
+    end
   end
 end
