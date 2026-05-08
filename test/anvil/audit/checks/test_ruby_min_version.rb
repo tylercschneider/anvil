@@ -23,5 +23,23 @@ module Anvil
         assert_predicate result, :pass?
       end
     end
+
+    def test_result_carries_the_check_name
+      Dir.mktmpdir do |dir|
+        File.write("#{dir}/sample.gemspec", <<~RUBY)
+          Gem::Specification.new do |spec|
+            spec.name = "sample"
+            spec.version = "0.0.1"
+            spec.summary = "x"
+            spec.authors = ["x"]
+            spec.required_ruby_version = ">= 3.2.0"
+          end
+        RUBY
+
+        result = Audit::Checks::RubyMinVersion.run(dir)
+
+        assert_equal :ruby_min_version, result.name
+      end
+    end
   end
 end
