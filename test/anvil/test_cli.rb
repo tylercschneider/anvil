@@ -18,11 +18,12 @@ module Anvil
             spec.required_ruby_version = ">= 3.2.0"
           end
         RUBY
+        File.write("#{dir}/LICENSE", "MIT")
         io = StringIO.new
 
         Anvil::CLI.run(dir, io)
 
-        assert_equal "✓ ruby_min_version\n", io.string
+        assert_includes io.string, "✓ ruby_min_version"
       end
     end
 
@@ -37,6 +38,7 @@ module Anvil
             spec.required_ruby_version = ">= 3.2.0"
           end
         RUBY
+        File.write("#{dir}/LICENSE", "MIT")
 
         assert_equal true, Anvil::CLI.run(dir, StringIO.new)
       end

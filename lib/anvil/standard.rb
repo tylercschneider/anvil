@@ -3,7 +3,8 @@
 module Anvil
   module Standard
     ENTRIES = [
-      {key: :ruby_min_version, value: ">= 3.2.0"}
+      {key: :ruby_min_version, value: ">= 3.2.0"},
+      {key: :license, value: "LICENSE"}
     ].freeze
 
     def self.entries
