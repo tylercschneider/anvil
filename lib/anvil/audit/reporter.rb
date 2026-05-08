@@ -5,7 +5,7 @@ module Anvil
     class Reporter
       def self.report(results, io)
         results.each do |result|
-          io.puts(result.pass? ? "✓" : "✗")
+          io.puts "#{result.pass? ? "✓" : "✗"} #{result.name}"
         end
       end
     end
