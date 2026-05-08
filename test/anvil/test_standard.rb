@@ -14,5 +14,11 @@ module Anvil
 
       assert_equal "LICENSE", license_entry[:value]
     end
+
+    def test_includes_a_changelog_entry_naming_the_expected_file
+      changelog_entry = Anvil::Standard.entries.find { |e| e[:key] == :changelog }
+
+      assert_equal "CHANGELOG.md", changelog_entry[:value]
+    end
   end
 end

@@ -18,10 +18,11 @@ module Anvil
           end
         RUBY
         File.write("#{dir}/LICENSE", "MIT")
+        File.write("#{dir}/CHANGELOG.md", "# Changelog")
 
         results = Audit::Runner.run(dir)
 
-        assert_equal [:ruby_min_version, :license], results.map(&:name)
+        assert_equal [:ruby_min_version, :license, :changelog], results.map(&:name)
         assert results.all?(&:pass?)
       end
     end
