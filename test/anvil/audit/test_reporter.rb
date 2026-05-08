@@ -6,16 +6,19 @@ require "anvil/audit/reporter"
 
 module Anvil
   class TestReporter < Minitest::Test
-    Result = Struct.new(:pass) do
+    Result = Struct.new(:name, :pass) do
       alias_method :pass?, :pass
     end
 
-    def test_prints_a_check_mark_for_passing_results_and_a_cross_for_failures
+    def test_prints_check_name_with_pass_or_fail_marker
       io = StringIO.new
 
-      Audit::Reporter.report([Result.new(true), Result.new(false)], io)
+      Audit::Reporter.report(
+        [Result.new(:ruby_min_version, true), Result.new(:ruby_min_version, false)],
+        io
+      )
 
-      assert_equal "✓\n✗\n", io.string
+      assert_equal "✓ ruby_min_version\n✗ ruby_min_version\n", io.string
     end
   end
 end

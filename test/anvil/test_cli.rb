@@ -22,7 +22,7 @@ module Anvil
 
         Anvil::CLI.run(dir, io)
 
-        assert_equal "✓\n", io.string
+        assert_equal "✓ ruby_min_version\n", io.string
       end
     end
   end
