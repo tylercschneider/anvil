@@ -4,4 +4,4 @@
 require "anvil"
 require "anvil/cli"
 
-Anvil::CLI.run(Dir.pwd, $stdout)
+exit(Anvil::CLI.run(Dir.pwd, $stdout) ? 0 : 1)
